@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+{% block content %}
+
+    <form action="/movies" method="GET">
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" placeholder="City">
+
+        <label for="movie">Movie:</label>
+        <input type="text" id="movie" name="movie" placeholder="Movie">
+
+        <input type="submit" value="Search">
+    </form>
+
+{% endblock %}

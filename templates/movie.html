@@ -1,0 +1,121 @@
+{% extends 'layout.html' %}
+{% block content %}
+    <div class="table-responsive">
+    <table border="1" class="table mt-3 table-sm">
+        <thead class="thead-dark">
+            <tr>
+                <th>Index</th>
+                <th>Theatre</th>
+                <th>Movie Name</th>
+                <th>Show Time</th>
+                <th>Total Seats</th>
+                <th>Seats Available</th>
+                <th>Cost</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+                <tr>
+                    <td>{{ row['Index'] }}</td>
+                    <td>{{ row['Theatre'] }}</td>
+                    <td>{{ row['Movie'] }}</td>
+                    <td>{{ row['Time'] }}</td>
+                    <td>{{ row['TotalSeats'] }}</td>
+                    <td>{{ row['SeatsAvailable'] }}</td>
+                    <td>{{ row['Cost'] }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+    <div class="container mt-3">
+        <div id='map' style='width: 800px; height: 600px;'></div>
+        <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoianNvbWEiLCJhIjoibFJmYl9JWSJ9.AUm8d76cbOvVEn2mMeG_ZA';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/streets-v9',
+            center: [77.593355255331, 12.973210507572613],
+            zoom: 11
+            });
+        map.on('load', function() {
+
+            var geojsonData = {
+                "type": "FeatureCollection",
+                "features": [
+                    {% for item in data %}
+                    {
+                        "type": "Feature",
+                        "geometry": {
+                        "type": "Point",
+                        "coordinates": [{{ item.Latitude }}, {{ item.Longitude }}]
+                        },
+                        "properties": {
+                            "TotalSeats": {{ item.TotalSeats }},
+                            "AvailableSeats": {{ item.SeatsAvailable }},
+                            "Cost" : {{item.Cost}},
+                            "Name" : "{{item.Theatre}}",
+                            "Time" : {{item.ShowTime}}
+                            }
+                    }
+                    {% if not loop.last %},
+                    {% endif %}
+                    {% endfor %}
+                ]
+                };
+
+                map.addSource('geojson-data', {
+        type: 'geojson',
+        data: geojsonData // Replace 'geojsonData' with your GeoJSON data
+    });
+
+        // Add a layer for your GeoJSON data
+        map.addLayer({
+            id: 'geojson-layer',
+            type: 'circle',
+            source: 'geojson-data',
+            paint: {
+                'circle-radius': 8,
+                'circle-color': 'blue'
+            }
+        });
+
+        // Define a variable to store the tooltip
+        var popup = new mapboxgl.Popup({
+            closeButton: false,
+            closeOnClick: false
+        });
+
+        // Show the tooltip when hovering over a feature
+        map.on('mouseenter', 'geojson-layer', function (e) {
+            var coordinates = e.features[0].geometry.coordinates.slice();
+            var TotalSeats = e.features[0].properties.TotalSeats;
+            var AvailableSeats = e.features[0].properties.AvailableSeats;
+            var Cost = e.features[0].properties.Cost;
+            var Name = e.features[0].properties.Name;
+
+            // Create HTML content for the tooltip
+            var tooltipContent = `
+                <strong>Name</strong> ${Name}<br>
+                <strong>Total Seats:</strong> ${TotalSeats}<br>
+                <strong>Available Seats:</strong> ${AvailableSeats}<br>
+                <strong>Cost</strong> ${Cost}
+            `;
+
+            // Set the popup content and location, and open it
+            popup.setLngLat(coordinates).setHTML(tooltipContent).addTo(map);
+        });
+
+        // Hide the tooltip when leaving a feature
+        map.on('mouseleave', 'geojson-layer', function () {
+            popup.remove();
+        });
+
+        })
+        </script>
+        <p></p>
+        <p></p>
+      </div>
+
+{% endblock %}
