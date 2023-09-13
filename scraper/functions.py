@@ -71,7 +71,7 @@ def create_show_list(driver):
     driver.execute_script("window.scrollTo(0, 0);")
 
     show_times=dict()
-    n = len(copy.deepcopy(cinema_list))
+    n = len(cinema_list[:])
     # n = 3
     try:
         for i in range(n):
@@ -167,6 +167,8 @@ def final_data(shows, theatres, movie_name, city_name):
     final_df = shows.merge(theatres, how="left", on="Theatre")
     final_df["Movie"] = movie_name
     final_df["City"] = city_name
+    final_df["Longitude"] = final_df["Longitude"].astype(float)
+    final_df["Latitude"] = final_df["Latitude"].astype(float)
     return final_df
 
 

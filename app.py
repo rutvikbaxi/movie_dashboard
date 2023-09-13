@@ -17,15 +17,15 @@ class Movies(db.Model):
     __tablename__ = 'movie_shows'
     index = db.Column(db.Integer, primary_key=True)
     Theatre = db.Column(db.String(30))
-    City = db.Column(db.String(30))
-    Movie = db.Column(db.String(30))
     Time = db.Column(db.String(30))
+    type = db.Column(db.String(10))
     TotalSeats = db.Column(db.Integer)
     SeatsAvailable = db.Column(db.Integer)
     Cost = db.Column(db.String(30))
     Longitude = db.Column(db.Float)
     Latitude = db.Column(db.Float)
-    type = db.Column(db.String(10))
+    Movie = db.Column(db.String(30))
+    City = db.Column(db.String(30))
 
     def __repr__(self):
         return f'<Task {self.Movie}>'

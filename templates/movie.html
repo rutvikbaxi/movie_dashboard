@@ -39,33 +39,32 @@
             center: [77.593355255331, 12.973210507572613],
             zoom: 11
             });
+
         map.on('load', function() {
 
             var geojsonData = {
                 "type": "FeatureCollection",
                 "features": [
-                    {% for item in data %}
+                    {% for item in data[:3] %}
                     {
                         "type": "Feature",
                         "geometry": {
                         "type": "Point",
-                        "coordinates": [{{ item.Latitude }}, {{ item.Longitude }}]
+                        "coordinates": [{{ item.Longitude }}, {{ item.Latitude }}]
                         },
                         "properties": {
                             "TotalSeats": {{ item.TotalSeats }},
                             "AvailableSeats": {{ item.SeatsAvailable }},
-                            "Cost" : {{item.Cost}},
+                            "Cost" : "{{item.Cost}}",
                             "Name" : "{{item.Theatre}}",
-                            "Time" : {{item.ShowTime}}
+                            "Time" : "{{item.ShowTime}}"
                             }
-                    }
-                    {% if not loop.last %},
-                    {% endif %}
+                    }{% if not loop.last %},{% endif %}
                     {% endfor %}
                 ]
                 };
 
-                map.addSource('geojson-data', {
+        map.addSource('geojson-data', {
         type: 'geojson',
         data: geojsonData // Replace 'geojsonData' with your GeoJSON data
     });
