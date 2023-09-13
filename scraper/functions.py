@@ -40,7 +40,6 @@ def create_cinemas_list(city):
     driver.quit()
     return cinema_df
 
-
 def open_booking_page(movie_name, driver):
     
     url = "https://www.pvrcinemas.com/Bengaluru/cinemas/showtimes"
@@ -76,6 +75,12 @@ def create_show_list(driver):
     # n = 3
     try:
         for i in range(n):
+            if i%2==0:
+                driver.refresh()
+                driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                cinema_list = driver.find_elements(By.CSS_SELECTOR, ".cinema-holder.ng-star-inserted")
+                driver.execute_script("window.scrollTo(0, 0);")           
+
             time.sleep(2)
             #get cinema list
             cinema_list = driver.find_elements(By.CSS_SELECTOR, ".cinema-holder.ng-star-inserted")
@@ -128,9 +133,8 @@ def create_show_list(driver):
             #wait for the T&C banner to load and click the close button 
             time.sleep(5)
 
-            if i%3==0:
-                wait = WebDriverWait(driver, 5)
-                loaded = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "modal-content-header")))
+            # wait = WebDriverWait(driver, 5)
+            # loaded = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "modal-content-header")))
 
             close_class = driver.find_element(By.CLASS_NAME, "modal-content-header")
             btn = close_class.find_element(By.CLASS_NAME, "ion-android-close")
