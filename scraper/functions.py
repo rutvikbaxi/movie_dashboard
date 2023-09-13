@@ -172,6 +172,7 @@ def final_data(shows, theatres, movie_name, city_name):
     final_df["City"] = city_name
     final_df["Longitude"] = final_df["Longitude"].astype(float)
     final_df["Latitude"] = final_df["Latitude"].astype(float)
+    final_df.fillna(0, inplace=True)
     return final_df
 
 
