@@ -12,8 +12,9 @@ def create_cinemas_list(city):
     url = "https://www.pvrcinemas.com/cinemas/"+city
     driver = webdriver.Chrome()
     driver.get(url)
-    time.sleep(2)
-
+    time.sleep(1)
+    driver.refresh()
+    time.sleep(3)
     theatres = dict()
     container = driver.find_element(By.CSS_SELECTOR, ".cinema-locator-carousel")
     theatre_list = container.find_elements(By.CLASS_NAME, "cinema-box")
@@ -113,8 +114,8 @@ def create_show_list(driver):
             try:
                 #open the seating
                 slot.click()
-                time.sleep(3)
-                wait = WebDriverWait(driver, 5)
+                time.sleep(2)
+                wait = WebDriverWait(driver, 1)
                 loaded = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "skip-btn")))
 
                 #press the skip button in case some promo comes
@@ -126,8 +127,10 @@ def create_show_list(driver):
 
             #wait for the T&C banner to load and click the close button 
             time.sleep(5)
-            wait = WebDriverWait(driver, 5)
-            loaded = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "modal-content-header")))
+
+            if i%3==0:
+                wait = WebDriverWait(driver, 5)
+                loaded = wait.until(EC.presence_of_element_located((By.CLASS_NAME, "modal-content-header")))
 
             close_class = driver.find_element(By.CLASS_NAME, "modal-content-header")
             btn = close_class.find_element(By.CLASS_NAME, "ion-android-close")
