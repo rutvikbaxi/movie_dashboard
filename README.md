@@ -1,45 +1,14 @@
-Simple Flask Todo App using SQLAlchemy and SQLite database.
+This is a simple Flask App that scrapes information from the PVR website for Bengaluru.
+It uses Selenium for scraping. 
+All the information rights reserved with PVR Cinemas. This project is only for learning purposes and is not meant to be put into production.  
 
-For styling [semantic-ui](https://semantic-ui.com/) is used.
+Landing page:  
+![landing_page](landing_page.png)  
 
-### Setup
-Create project with virtual environment
+Main page:
+![info](main_page.png)  
 
-```console
-$ mkdir myproject
-$ cd myproject
-$ python3 -m venv venv
-```
 
-Activate it
-```console
-$ . venv/bin/activate
-```
 
-or on Windows
-```console
-venv\Scripts\activate
-```
 
-Install Flask
-```console
-$ pip install Flask
-$ pip install Flask-SQLAlchemy
-```
 
-Set environment variables in terminal
-```console
-$ export FLASK_APP=app.py
-$ export FLASK_ENV=development
-```
-
-or on Windows
-```console
-$ set FLASK_APP=app.py
-$ set FLASK_ENV=development
-```
-
-Run the app
-```console
-$ flask run
-```

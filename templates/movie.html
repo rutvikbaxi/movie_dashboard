@@ -91,13 +91,15 @@
             var AvailableSeats = e.features[0].properties.AvailableSeats;
             var Cost = e.features[0].properties.Cost;
             var Name = e.features[0].properties.Name;
+            var Time = e.features[0].properties.Time;
 
             // Create HTML content for the tooltip
             var tooltipContent = `
                 <strong>Name</strong> ${Name}<br>
                 <strong>Total Seats:</strong> ${TotalSeats}<br>
                 <strong>Available Seats:</strong> ${AvailableSeats}<br>
-                <strong>Cost</strong> ${Cost}
+                <strong>Cost</strong> ${Cost}<br>
+                <strong>Time</strong> ${Time}
             `;
 
             // Set the popup content and location, and open it
