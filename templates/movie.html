@@ -28,7 +28,7 @@
     </div>
 
     <div class="container mt-3 border">
-        <div id='map' style='width: 600px; height: 450px;'></div>
+        <div id='map' style='width: 600px; height: 400px;'></div>
         <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoianNvbWEiLCJhIjoibFJmYl9JWSJ9.AUm8d76cbOvVEn2mMeG_ZA';
         var map = new mapboxgl.Map({
@@ -55,7 +55,7 @@
                             "AvailableSeats": {{ item.SeatsAvailable }},
                             "Cost" : "{{item.Cost}}",
                             "Name" : "{{item.Theatre}}",
-                            "Time" : "{{item.ShowTime}}"
+                            "Time" : "{{item.Time}}"
                             }
                     }{% if not loop.last %},{% endif %}
                     {% endfor %}
@@ -99,7 +99,7 @@
                 <strong>Total Seats:</strong> ${TotalSeats}<br>
                 <strong>Available Seats:</strong> ${AvailableSeats}<br>
                 <strong>Cost</strong> ${Cost}<br>
-                <strong>Time</strong> ${Time}
+                <strong>Time:</strong> ${Time}
             `;
 
             // Set the popup content and location, and open it
