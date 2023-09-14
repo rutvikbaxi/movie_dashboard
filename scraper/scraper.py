@@ -12,6 +12,6 @@ table_name = movie_name+city_name
 import pandas as pd
 import sqlite3
 conn = sqlite3.connect('todo.db')
-final_df.to_sql("movie_shows", conn, if_exists='append', index=True)
-conn.commit()
+# final_df.to_sql("movie_shows", conn, if_exists='append', index=True)
+# conn.commit()
 conn.close()

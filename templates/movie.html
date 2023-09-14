@@ -1,10 +1,9 @@
 {% extends 'layout.html' %}
 {% block content %}
-    <div class="table-responsive">
+    <div class="table-responsive" style="max-height: 200px; overflow-y: auto;">
     <table border="1" class="table mt-3 table-sm">
         <thead class="thead-dark">
             <tr>
-                <th>Index</th>
                 <th>Theatre</th>
                 <th>Movie Name</th>
                 <th>Show Time</th>
@@ -16,7 +15,6 @@
         <tbody>
             {% for row in data %}
                 <tr>
-                    <td>{{ row['Index'] }}</td>
                     <td>{{ row['Theatre'] }}</td>
                     <td>{{ row['Movie'] }}</td>
                     <td>{{ row['Time'] }}</td>
@@ -29,7 +27,7 @@
     </table>
     </div>
 
-    <div class="container mt-3">
+    <div class="container mt-3 border">
         <div id='map' style='width: 600px; height: 450px;'></div>
         <script>
         mapboxgl.accessToken = 'pk.eyJ1IjoianNvbWEiLCJhIjoibFJmYl9JWSJ9.AUm8d76cbOvVEn2mMeG_ZA';

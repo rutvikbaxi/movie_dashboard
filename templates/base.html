@@ -1,14 +1,25 @@
 {% extends 'layout.html' %}
 {% block content %}
 
-    <form action="/movies" method="GET">
-        <label for="city">City:</label>
-        <input type="text" id="city" name="city" placeholder="City">
+<div style="display: flex; justify-content: center; align-items: center; height: 100vh;">
+  <form action="/movies" method="GET" style="text-align: center; border: 1px solid #ccc; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+    <label for="city">City:</label>
+    <input type="text" id="city" name="city" placeholder="City" style="border-radius: 5px; padding: 5px; margin: 5px;">
 
-        <label for="movie">Movie:</label>
-        <input type="text" id="movie" name="movie" placeholder="Movie">
-
-        <input type="submit" value="Search">
-    </form>
+    <!-- <label for="movie">Movie:</label>
+    <div class="dropdown" style="display: inline;">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="movieDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius: 5px; padding: 5px; margin: 5px;">
+        Select Movie
+      </button>
+      <div class="dropdown-menu" aria-labelledby="movieDropdown">
+          <a class="dropdown-item" href="#">JAWAN</a>
+      </div>
+    </div> -->
+    <label for="movie">Movie:</label>
+    <input type="text" id="movie" name="movie" placeholder="Select Movie" style="border-radius: 5px; padding: 5px; margin: 5px;">
+    
+    <input type="submit" value="Search" style="background-color: #012136; color: #fff; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+  </form>
+</div>
 
 {% endblock %}
